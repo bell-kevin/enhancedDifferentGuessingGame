@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import { useFonts, OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
+import * as SplashScreen from 'expo-splash-screen';
 
 const trophyImage = require('../assets/trophy.png');
 
 const GuessingGame = () => {
+    const [fontsLoaded] = useFonts({
+        'open-sans': require('../assets/fonts/OpenSans-Regular.ttf'),
+        'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
+      });
     // State variables
     const [targetNumber, setTargetNumber] = useState(Math.floor(Math.random() * 100) + 1);
     const [guess, setGuess] = useState('');
@@ -13,6 +19,8 @@ const GuessingGame = () => {
     const [guesses, setGuesses] = useState([]);
     const [guessesFeedback, setGuessesFeedback] = useState([]);
 
+    
+
     // Function to handle guess input
     const handleGuessInput = (inputValue) => setGuess(inputValue);
 
@@ -20,7 +28,7 @@ const GuessingGame = () => {
     const handleGuessSubmission = () => {
         const guessedNumber = parseInt(guess);
         if (isNaN(guessedNumber) || guessedNumber < 1 || guessedNumber > 100) {
-            setFeedback('Please enter a valid number between 1 and 100');
+            setFeedback('Please enter valid data');
             return;
         }
         if (guessedNumber === targetNumber) {
@@ -54,27 +62,49 @@ const GuessingGame = () => {
         handleGuessSubmission();
     };
 
+    useEffect(() => {
+        const hideSplash = async () => {
+          await SplashScreen.hideAsync();
+        };
+        if (!fontsLoaded) {
+          SplashScreen.preventAutoHideAsync();
+        } else {
+          hideSplash();
+        }
+      }, [fontsLoaded]);
+    
+      if (!fontsLoaded) {
+        return null;
+      }
+
+
     return (
         <View>
-            <Text style={styles.name}>KEVIN BELL</Text>
-            <Text style={styles.instructions}>Guess a number{'\n'} between 1 and 100:</Text>
-            {gameOver ? null: (
-            <TextInput
-                style={styles.textInput}
-                value={guess}
-                onChangeText={handleGuessInput}
-                onSubmitEditing={handleGuessSubmit}
-                placeholder="Enter your guess"
-                keyboardType="numeric"
-            />
+            <Text style={[styles.name, { fontFamily: 'open-sans-bold' }]}>KEVIN BELL</Text>
+            <Text style={[styles.instructions, { fontFamily: 'open-sans' }]}>Guess a number{'\n'} between 1 and 100:</Text>
+            {gameOver ? null : (
+                <TextInput
+                    style={styles.textInput}
+                    value={guess}
+                    onChangeText={handleGuessInput}
+                    onSubmitEditing={handleGuessSubmit}
+                    placeholder="Enter your guess"
+                    keyboardType="numeric"
+                />
             )}
-            {gameOver ? null: <Button title="Check My Guess" onPress={handleGuessSubmission} color="green" />}
+            {gameOver ? null : <Button
+                title="Check My Guess"
+                onPress={handleGuessSubmission}
+                color="green" />}
             {feedback ? <Text style={styles.textAlignCenter}>{feedback}</Text> : null}
             {gameOver && (
                 <View>
                     <Image source={trophyImage} style={styles.image} />
                     <Text style={styles.textAlignCenter}>Game Over!</Text>
-                    <Button title="New Game" onPress={handleNewGameStart} color="green" />
+                    <Button
+                        title="New Game"
+                        onPress={handleNewGameStart}
+                        color="green" />
                 </View>
             )}
             {guesses.length > 0 && (
@@ -102,10 +132,12 @@ const styles = StyleSheet.create({
     name: {
         textAlign: 'center',
         fontWeight: 'bold',
+        fontFamily: 'open-sans-bold',
     },
     instructions: {
         textAlign: 'center',
         fontWeight: 'bold',
+        fontFamily: 'open-sans',
     },
     boldText: {
         fontWeight: 'bold',
