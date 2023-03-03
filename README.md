@@ -10,13 +10,7 @@ NOTE: Make a COPY of the previous project. You will almost certainly need to ret
 
 The results look like this:
 
-![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/pics/1.PNG)
-
-![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/pics/2.PNG)
-
-![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/pics/3.PNG)
-
-![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/pics/4.PNG)
+![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/pics/1.PNG) ![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/pics/2.PNG) ![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/pics/3.PNG) ![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/pics/4.PNG)
 
 Note: you will use background color on the screens. These examples use the default white background; you must use some color that is not white.
 
