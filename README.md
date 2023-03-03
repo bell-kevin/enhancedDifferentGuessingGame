@@ -48,9 +48,9 @@ Use style for the text of the hint so that it mimics the buttons for "Check My G
 
 In the video tutorial, you added icons for the hints and an image for the GameOver screen. In this project, use an icon instead of an image when the game is over. The example above uses the "trophy" image in the Ionicons library. That library has another one, "ribbon-sharp", as a suggestion. You can look through other libraries that are part of @expo/vector-icons and select a different icon.
 
- 
-
 Take 4 screenshots, as shown above.
+
+![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/Capture.PNG)
 
 Submission: Zip together the root folder and the 4 screenshots, and submit the single zipped folder.
 
