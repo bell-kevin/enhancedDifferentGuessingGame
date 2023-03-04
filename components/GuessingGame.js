@@ -95,6 +95,7 @@ const GuessingGame = () => {
             {gameOver ? null : <Button
                 title="Check My Guess"
                 onPress={handleGuessSubmission}
+                borderRadius={10}
                 color="green" />}
             {feedback ? <Text style={styles.textAlignCenter}>{feedback}</Text> : null}
             {gameOver && (
@@ -104,6 +105,7 @@ const GuessingGame = () => {
                     <Button
                         title="New Game"
                         onPress={handleNewGameStart}
+                        borderRadius={10}
                         color="green" />
                 </View>
             )}
@@ -161,3 +163,4 @@ const styles = StyleSheet.create({
 });
 
 export default GuessingGame;
+
