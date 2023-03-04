@@ -81,7 +81,7 @@ const GuessingGame = () => {
     return (
         <View>
             <Text style={[styles.name, { fontFamily: 'open-sans-bold' }]}>KEVIN BELL</Text>
-            <Text style={[styles.instructions, { fontFamily: 'open-sans' }]}>Guess a number{'\n'} between 1 and 100:</Text>
+            <Text style={[styles.instructions, { fontFamily: 'open-sans' }]}>Guess a number{'\n'} between 1 and 100</Text>
             {gameOver ? null : (
                 <TextInput
                     style={styles.textInput}
