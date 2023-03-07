@@ -1,38 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { useFonts, OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
+import { Ionicons } from '@expo/vector-icons';
 import * as SplashScreen from 'expo-splash-screen';
 
-const trophyImage = require('../assets/trophy.png');
+let trophyImage = require('../assets/trophy.png');
 
-const GuessingGame = () => {
-    const [fontsLoaded] = useFonts({
+let GuessingGame = () => {
+    let [fontsLoaded] = useFonts({
         'open-sans': require('../assets/fonts/OpenSans-Regular.ttf'),
         'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
-      });
+    });
     // State variables
-    const [targetNumber, setTargetNumber] = useState(Math.floor(Math.random() * 100) + 1);
-    const [guess, setGuess] = useState('');
-    const [rounds, setRounds] = useState(0);
-    const [gameOver, setGameOver] = useState(false);
-    const [feedback, setFeedback] = useState('');
-    const [guesses, setGuesses] = useState([]);
-    const [guessesFeedback, setGuessesFeedback] = useState([]);
+    let [targetNumber, setTargetNumber] = useState(Math.floor(Math.random() * 100) + 1);
+    let [guess, setGuess] = useState('');
+    let [rounds, setRounds] = useState(0);
+    let [gameOver, setGameOver] = useState(false);
+    let [feedback, setFeedback] = useState('');
+    let [guesses, setGuesses] = useState([]);
+    let [guessesFeedback, setGuessesFeedback] = useState([]);
 
-    
+
 
     // Function to handle guess input
-    const handleGuessInput = (inputValue) => setGuess(inputValue);
+    let handleGuessInput = (inputValue) => setGuess(inputValue);
 
     // Function to handle guess submission
-    const handleGuessSubmission = () => {
-        const guessedNumber = parseInt(guess);
+    let handleGuessSubmission = () => {
+        let guessedNumber = parseInt(guess);
         if (isNaN(guessedNumber) || guessedNumber < 1 || guessedNumber > 100) {
             setFeedback('Please enter valid data');
             return;
         }
         if (guessedNumber === targetNumber) {
-            setFeedback(`Congratulations, you guessed the number ${targetNumber} in ${rounds + 1} rounds!`);
+            setFeedback(`Congrats! Number ${targetNumber} guessed in ${rounds + 1} rounds!`);
             setGameOver(true);
             setRounds(rounds + 1);
             return;
@@ -40,13 +41,13 @@ const GuessingGame = () => {
         setRounds(rounds + 1);
         setGuesses([guessedNumber, ...guesses]);
         setGuessesFeedback([`${guessedNumber > targetNumber ? 'Too high' : 'Too low'}`, ...guessesFeedback]);
-        setFeedback(`Your guess is too ${guessedNumber > targetNumber ? 'high' : 'low'}!`);
+        setFeedback(`Guess is too ${guessedNumber > targetNumber ? 'HIGH' : 'LOW'}!`);
         setGuess(''); // clear input field
     };
 
 
     // Function to handle new game start
-    const handleNewGameStart = () => {
+    let handleNewGameStart = () => {
         setTargetNumber(Math.floor(Math.random() * 100) + 1);
         setGuess('');
         setRounds(0);
@@ -57,25 +58,25 @@ const GuessingGame = () => {
     };
 
     // Function to handle submit button or Enter key press
-    const handleGuessSubmit = (event) => {
+    let handleGuessSubmit = (event) => {
         event.preventDefault();
         handleGuessSubmission();
     };
 
     useEffect(() => {
-        const hideSplash = async () => {
-          await SplashScreen.hideAsync();
+        let hideSplash = async () => {
+            await SplashScreen.hideAsync();
         };
         if (!fontsLoaded) {
-          SplashScreen.preventAutoHideAsync();
+            SplashScreen.preventAutoHideAsync();
         } else {
-          hideSplash();
+            hideSplash();
         }
-      }, [fontsLoaded]);
-    
-      if (!fontsLoaded) {
+    }, [fontsLoaded]);
+
+    if (!fontsLoaded) {
         return null;
-      }
+    }
 
 
     return (
@@ -92,76 +93,104 @@ const GuessingGame = () => {
                     keyboardType="numeric"
                 />
             )}
-            {gameOver ? null : <Button
-                title="Check My Guess"
-                onPress={handleGuessSubmission}
-                style={styles.button}
-                color="green" />}
-            {feedback ? <Text style={styles.textAlignCenter}>{feedback}</Text> : null}
-            {gameOver && (
-                <View>
-                    <Image source={trophyImage} style={styles.image} />
-                    <Text style={styles.textAlignCenter}>Game Over!</Text>
-                    <Button
-                        title="New Game"
-                        onPress={handleNewGameStart}
-                        style={styles.button}
-                        color="green" />
-                </View>
-            )}
-            {guesses.length > 0 && (
-                <View>
-                    <Text style={styles.boldText}>Past guesses:</Text>
-                    {guesses.map((guess, index) => (
-                        <View key={index}>
-                            <Text style={styles.textAlignCenter}>{`${guesses.length - index}. ${guess}`}</Text>
-                            {guessesFeedback[index] && (
-                                <Text style={styles.textAlignCenter}>{guessesFeedback[index]}</Text>
-                            )}
-                        </View>
-                    ))}
-                </View>
-            )}
+            {gameOver ? null : <TouchableOpacity onPress={handleGuessSubmission} style={styles.button}><Text style={styles.buttonText}>Check My Guess</Text></TouchableOpacity>}
+            {feedback ? <TouchableOpacity style={styles.hint}><Text style={styles.outputText}>{feedback}</Text></TouchableOpacity> : null}
+            {gameOver ?
+                <TouchableOpacity
+                    onPress={handleNewGameStart}
+                    style={styles.button}><Text
+                        style={styles.buttonText}>NEW GAME</Text></TouchableOpacity> : null}
+            {gameOver ?
+                <Ionicons
+                    name="trophy"
+                    size={100}
+                    color="gold"
+                    alignSelf="center"
+                /> : null}
+            <View style={styles.guessesContainer}>
+                {guesses.map((guess, index) => (
+                    <View key={index} style={styles.guesses}>
+                        <Text style={[styles.guessesText, { fontFamily: 'open-sans', textAlign: 'center' }]}>{guess}</Text>
+                        <Text style={[styles.guessesText, { fontFamily: 'open-sans', textAlign: 'center' }]}>{guessesFeedback[index]}</Text>
+                    </View>
+                ))}
+            </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create({
-    textAlignCenter: {
-        textAlign: 'center',
-        padding: 1,
-    },
+let styles = StyleSheet.create({
     name: {
+        fontSize: 30,
+        color: 'black',
         textAlign: 'center',
-        fontWeight: 'bold',
-        fontFamily: 'open-sans-bold',
+        marginTop: 50,
     },
     instructions: {
+        fontSize: 20,
+        color: 'black',
         textAlign: 'center',
-        fontWeight: 'bold',
-        fontFamily: 'open-sans',
-    },
-    boldText: {
-        fontWeight: 'bold',
-        textAlign: 'center',
+        marginTop: 20,
     },
     textInput: {
-        textAlign: 'center',
-        borderWidth: 1,
-        borderColor: 'black',
-        margin: 10,
-    },
-    view: {
-        textAlign: 'center',
-    },
-    image: {
         width: 200,
-        height: 200,
+        height: 40,
+        borderColor: 'black',
+        borderWidth: 1,
+        marginTop: 20,
+        textAlign: 'center',
         alignSelf: 'center',
-        padding: 30,
+        alignContent: 'center',
+    },
+    feedback: {
+        fontSize: 20,
+        color: 'black',
+        textAlign: 'center',
+        marginTop: 20,
     },
     button: {
-        borderRadius: 10,
+        backgroundColor: 'green',
+        width: 200,
+        height: 40,
+        marginTop: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 15,
+        alignSelf: 'center',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 20,
+        textAlign: 'center',
+    },
+    outputText: {
+        color: 'black',
+        fontSize: 20,
+        textAlign: 'center',
+    },
+    guessesContainer: {
+        marginTop: 20,
+    },
+    guesses: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: 200,
+        alignSelf: 'center',
+    },
+    guessesText: {
+        fontSize: 20,
+    },
+    hint: {
+        backgroundColor: 'lightgrey',
+        borderRadius: 5,
+        width: 200,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+        marginLeft: 10,
+        marginRight: 10,
+        alignSelf: 'center',
     },
 });
 
