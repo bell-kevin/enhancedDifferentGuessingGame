@@ -50,15 +50,15 @@ In the video tutorial, you added icons for the hints and an image for the GameOv
 
 Take 4 screenshots, as shown above.
 
-![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/Screenshot%20from%202023-03-04%2009-28-16.png)
+![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/1.PNG)
 
-![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/Screenshot%20from%202023-03-04%2009-28-34.png)
+![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/2.PNG)
 
-![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/Screenshot%20from%202023-03-04%2009-33-15.png)
+![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/3.PNG)
 
-![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/Screenshot%20from%202023-03-04%2009-33-41.png)
+![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/4.PNG)
 
-![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/Screenshot%20from%202023-03-04%2009-35-17.png)
+![p](https://github.com/bell-kevin/enhancedDifferentGuessingGame/blob/main/screenshots/5.PNG)
 
 Submission: Zip together the root folder and the 4 screenshots, and submit the single zipped folder.
 
